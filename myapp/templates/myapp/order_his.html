@@ -1,0 +1,768 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | Mitti Bazaar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ 
+</head>
+<body>
+    {% include './header.html' %}
+    
+    <div class="account-top-section">
+        <div class="account-container">
+            <div class="account-header">
+                <h1>My Orders</h1>
+                <p>View your order history and track shipments</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="account-container">
+        <div class="account-content">
+            <div class="account-sidebar">
+                <ul class="account-menu">
+                    <li><a href="{% url 'account' %}">Dashboard</a></li>
+                    <li><a href="#" class="active">Orders</a></li>
+                    <li><a href="{% url 'wishlist' %}">Wishlist</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
+            
+            <div class="account-main">
+                <!-- Orders List -->
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Order 1 -->
+                        <tr>
+                            <td data-label="Order">
+                                <div class="order-number">#MB-2023-1001</div>
+                            </td>
+                            <td data-label="Date">
+                                <div class="order-date">15 Oct, 2023</div>
+                            </td>
+                            <td data-label="Items">
+                                <div class="order-items-preview">
+                                    <div class="order-item-thumb">
+                                        <img src="{% static 'img/products/product-img-1.jpg' %}" alt="Organic Strawberries">
+                                    </div>
+                                    <div class="order-item-thumb">
+                                        <img src="{% static 'img/products/product-img-2.jpg' %}" alt="Fresh Oranges">
+                                    </div>
+                                    <div class="order-item-count">+2 more</div>
+                                </div>
+                            </td>
+                            <td data-label="Status">
+                                <span class="order-status status-completed">Completed</span>
+                            </td>
+                            <td data-label="Total" class="order-total">₹342.95</td>
+                            <td data-label="Action">
+                                <a href="#" class="order-details-toggle btn btn-sm btn-outline">
+                                    Details <i class="fas fa-chevron-down"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <!-- Order 1 Details -->
+                        <tr class="order-details">
+                            <td colspan="6">
+                                <div class="order-details-panel">
+                                    <div class="order-details-grid">
+                                        <div class="order-details-section">
+                                            <h4>Shipping Address</h4>
+                                            <p>
+                                                John Doe<br>
+                                                123 Garden Street<br>
+                                                Green Valley, Bangalore<br>
+                                                Karnataka 560001<br>
+                                                India<br>
+                                                Phone: +91 9876543210
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="order-details-section">
+                                            <h4>Payment Method</h4>
+                                            <p>
+                                                Credit Card (VISA)<br>
+                                                Ending in •••• 4242<br>
+                                                Total: ₹342.95
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <h4 style="margin-top: 1.5rem;">Order Items</h4>
+                                    <table class="order-details-items">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="order-details-item">
+                                                        <div class="order-details-item-img">
+                                                            <img src="{% static 'img/products/product-img-1.jpg' %}" alt="Organic Strawberries">
+                                                        </div>
+                                                        <div>
+                                                            <div class="wishlist-item-title">Organic Strawberries</div>
+                                                            <div class="wishlist-item-sku">SKU: FRSTB-001</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>₹120.99</td>
+                                                <td>1</td>
+                                                <td>₹120.99</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="order-details-item">
+                                                        <div class="order-details-item-img">
+                                                            <img src="{% static 'img/products/product-img-2.jpg' %}" alt="Fresh Oranges">
+                                                        </div>
+                                                        <div>
+                                                            <div class="wishlist-item-title">Fresh Oranges</div>
+                                                            <div class="wishlist-item-sku">SKU: FRORG-005</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>₹80.99</td>
+                                                <td>2</td>
+                                                <td>₹161.98</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="order-details-item">
+                                                        <div class="order-details-item-img">
+                                                            <img src="{% static 'img/products/product-img-4.jpg' %}" alt="Organic Tomatoes">
+                                                        </div>
+                                                        <div>
+                                                            <div class="wishlist-item-title">Organic Tomatoes</div>
+                                                            <div class="wishlist-item-sku">SKU: VETOM-008</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>₹40.00</td>
+                                                <td>1</td>
+                                                <td>₹40.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="order-details-item">
+                                                        <div class="order-details-item-img">
+                                                            <img src="{% static 'img/products/product-img-5.jpg' %}" alt="Fresh Broccoli">
+                                                        </div>
+                                                        <div>
+                                                            <div class="wishlist-item-title">Fresh Broccoli</div>
+                                                            <div class="wishlist-item-sku">SKU: VEBRO-003</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>₹60.00</td>
+                                                <td>1</td>
+                                                <td>₹60.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                    <div class="order-details-summary">
+                                        <div class="order-details-summary-row">
+                                            <span>Subtotal:</span>
+                                            <span>₹381.97</span>
+                                        </div>
+                                        <div class="order-details-summary-row">
+                                            <span>Shipping:</span>
+                                            <span>₹40.00</span>
+                                        </div>
+                                        <div class="order-details-summary-row">
+                                            <span>Discount:</span>
+                                            <span>-₹79.02</span>
+                                        </div>
+                                        <div class="order-details-summary-row order-details-summary-total">
+                                            <span>Total:</span>
+                                            <span>₹342.95</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Order 2 -->
+                        <tr>
+                            <td data-label="Order">
+                                <div class="order-number">#MB-2023-0987</div>
+                            </td>
+                            <td data-label="Date">
+                                <div class="order-date">05 Oct, 2023</div>
+                            </td>
+                            <td data-label="Items">
+                                <div class="order-items-preview">
+                                    <div class="order-item-thumb">
+                                        <img src="{% static 'img/products/product-img-3.jpg' %}" alt="Organic Apples">
+                                    </div>
+                                    <div class="order-item-thumb">
+                                        <img src="{% static 'img/products/product-img-6.jpg' %}" alt="Fresh Carrots">
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Status">
+                                <span class="order-status status-shipped">Shipped</span>
+                            </td>
+                            <td data-label="Total" class="order-total">₹185.50</td>
+                            <td data-label="Action">
+                                <a href="#" class="order-details-toggle btn btn-sm btn-outline">
+                                    Details <i class="fas fa-chevron-down"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <!-- Order 3 -->
+                        <tr>
+                            <td data-label="Order">
+                                <div class="order-number">#MB-2023-0954</div>
+                            </td>
+                            <td data-label="Date">
+                                <div class="order-date">22 Sep, 2023</div>
+                            </td>
+                            <td data-label="Items">
+                                <div class="order-items-preview">
+                                    <div class="order-item-thumb">
+                                        <img src="{% static 'img/products/product-img-7.jpg' %}" alt="Organic Potatoes">
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Status">
+                                <span class="order-status status-cancelled">Cancelled</span>
+                            </td>
+                            <td data-label="Total" class="order-total">₹75.25</td>
+                            <td data-label="Action">
+                                <a href="#" class="order-details-toggle btn btn-sm btn-outline">
+                                    Details <i class="fas fa-chevron-down"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Pagination would go here -->
+                <div class="action-buttons">
+                    <a href="{% url 'shop' %}" class="btn btn-outline">Continue Shopping</a>
+                </div>
+                
+                <!-- Empty Orders State (hidden) -->
+                <!--
+                <div class="empty-orders">
+                    <div class="empty-orders-icon">📦</div>
+                    <h3>No orders yet</h3>
+                    <p>You haven't placed any orders with us yet.</p>
+                    <a href="{% url 'shop' %}" class="btn">Start Shopping</a>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    
+    {% include './footer.html' %}
+
+    <script>
+        // Toggle order details panels
+        document.querySelectorAll('.order-details-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const panel = this.closest('tr').nextElementSibling.querySelector('.order-details-panel');
+                this.classList.toggle('active');
+                panel.classList.toggle('active');
+                
+                // Update icon/text
+                const icon = this.querySelector('i');
+                icon.style.transform = this.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
+            });
+        });
+    </script>
+
+</body>
+   <style>
+        :root {
+            --primary-color: #F28123;
+            --secondary-color: #051922;
+            --light-color: #f9f9f9;
+            --text-color: #555;
+            --header-bg: #344c53;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Section */
+        .account-top-section {
+            background-color: var(--header-bg);
+            padding-bottom: 2rem;
+        }
+        
+        .account-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15rem 1rem 2rem;
+        }
+        
+        .account-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+        
+        .account-header h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Main Content Layout */
+        .account-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: transparent;
+        }
+        
+        .account-sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        
+        .account-main {
+            flex: 3;
+            min-width: 300px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Navigation Menu */
+        .account-menu {
+            list-style: none;
+        }
+        
+        .account-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-menu a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .account-menu a:hover, 
+        .account-menu a.active {
+            background-color: rgba(242, 129, 35, 0.1);
+            color: var(--primary-color);
+        }
+        
+        /* Orders Table */
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+        
+        .orders-table thead {
+            background-color: var(--light-color);
+        }
+        
+        .orders-table th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--secondary-color);
+            white-space: nowrap;
+        }
+        
+        .orders-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .order-number {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .order-date {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .order-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .status-completed {
+            background-color: #e3f7e8;
+            color: #28a745;
+        }
+        
+        .status-processing {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-shipped {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-cancelled {
+            background-color: #ffe3e3;
+            color: #dc3545;
+        }
+        
+        .order-total {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        /* Order Items Preview */
+        .order-items-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .order-item-thumb {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        
+        .order-item-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .order-item-count {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #e07a1f;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        /* Empty Orders */
+        .empty-orders {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        
+        .empty-orders-icon {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 1.5rem;
+        }
+        
+        .empty-orders h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .empty-orders p {
+            margin-bottom: 1.5rem;
+            color: #777;
+        }
+        
+        /* Order Details Toggle */
+        .order-details-toggle {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .order-details-toggle i {
+            transition: transform 0.3s ease;
+        }
+        
+        .order-details-toggle.active i {
+            transform: rotate(180deg);
+        }
+        
+        /* Order Details Panel */
+        .order-details-panel {
+            display: none;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+        
+        .order-details-panel.active {
+            display: block;
+        }
+        
+        .order-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .order-details-section h4 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .order-details-items {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .order-details-items th {
+            text-align: left;
+            padding: 8px;
+            background-color: #f1f1f1;
+        }
+        
+        .order-details-items td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-details-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .order-details-item-img {
+            width: 60px;
+            min-width: 60px;
+        }
+        
+        .order-details-item-img img {
+            width: 100%;
+            border-radius: 4px;
+        }
+        
+        .order-details-summary {
+            background-color: #f1f1f1;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+        
+        .order-details-summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .order-details-summary-total {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            border-top: 1px solid #ddd;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .account-container {
+                padding-top: 12rem;
+            }
+            
+            .orders-table th,
+            .orders-table td {
+                padding: 10px 12px;
+            }
+            
+            .order-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .account-container {
+                padding-top: 8rem;
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+            
+            .account-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .account-sidebar,
+            .account-main {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .orders-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons a {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .account-container {
+                padding-top: 6rem;
+            }
+            
+            .account-header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .orders-table {
+                display: block;
+                width: 100%;
+            }
+            
+            .orders-table thead {
+                display: none;
+            }
+            
+            .orders-table tbody {
+                display: block;
+            }
+            
+            .orders-table tr {
+                display: block;
+                margin-bottom: 1.5rem;
+                border-bottom: 2px solid #eee;
+                position: relative;
+                padding-bottom: 1rem;
+            }
+            
+            .orders-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem 0.5rem;
+                border-bottom: none;
+                white-space: normal;
+            }
+            
+            .orders-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                margin-right: 1rem;
+                color: var(--secondary-color);
+                flex: 1;
+            }
+            
+            .orders-table td > * {
+                flex: 2;
+                text-align: right;
+            }
+            
+            .order-items-preview {
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</html>

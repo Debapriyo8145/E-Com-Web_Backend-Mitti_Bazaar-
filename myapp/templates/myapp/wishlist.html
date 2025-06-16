@@ -1,0 +1,508 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist | Mitti Bazaar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #F28123;
+            --secondary-color: #051922;
+            --light-color: #f9f9f9;
+            --text-color: #555;
+            --header-bg: #344c53;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Section */
+        .account-top-section {
+            background-color: var(--header-bg);
+            padding-bottom: 2rem;
+        }
+        
+        .account-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15rem 1rem 2rem;
+        }
+        
+        .account-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+        
+        .account-header h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Main Content Layout */
+        .account-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: transparent;
+        }
+        
+        .account-sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        
+        .account-main {
+            flex: 3;
+            min-width: 300px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Navigation Menu */
+        .account-menu {
+            list-style: none;
+        }
+        
+        .account-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-menu a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .account-menu a:hover, 
+        .account-menu a.active {
+            background-color: rgba(242, 129, 35, 0.1);
+            color: var(--primary-color);
+        }
+        
+        /* Wishlist Table */
+        .wishlist-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+        
+        .wishlist-table thead {
+            background-color: var(--light-color);
+        }
+        
+        .wishlist-table th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--secondary-color);
+            white-space: nowrap;
+        }
+        
+        .wishlist-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .wishlist-item-img {
+            width: 70px;
+            min-width: 70px;
+            margin-right: 15px;
+        }
+        
+        .wishlist-item-img img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        
+        .wishlist-item-title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        
+        .wishlist-item-sku {
+            font-size: 0.85rem;
+            color: #777;
+        }
+        
+        .wishlist-item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .stock-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .in-stock {
+            background-color: #e3f7e8;
+            color: #28a745;
+        }
+        
+        .out-of-stock {
+            background-color: #ffe3e3;
+            color: #dc3545;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #e07a1f;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+        
+        .remove-item {
+            color: #999;
+            font-size: 1.4rem;
+            line-height: 1;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 5px;
+        }
+        
+        .remove-item:hover {
+            color: #ff3333;
+            transform: scale(1.1);
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        /* Empty Wishlist */
+        .empty-wishlist {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        
+        .empty-wishlist-icon {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 1.5rem;
+        }
+        
+        .empty-wishlist h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .empty-wishlist p {
+            margin-bottom: 1.5rem;
+            color: #777;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .account-container {
+                padding-top: 12rem;
+            }
+            
+            .wishlist-table th,
+            .wishlist-table td {
+                padding: 10px 12px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .account-container {
+                padding-top: 8rem;
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+            
+            .account-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .account-sidebar,
+            .account-main {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .wishlist-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons a {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .account-container {
+                padding-top: 6rem;
+            }
+            
+            .account-header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .wishlist-table {
+                display: block;
+                width: 100%;
+            }
+            
+            .wishlist-table thead {
+                display: none;
+            }
+            
+            .wishlist-table tbody {
+                display: block;
+            }
+            
+            .wishlist-table tr {
+                display: block;
+                margin-bottom: 1.5rem;
+                border-bottom: 2px solid #eee;
+                position: relative;
+                padding-bottom: 1rem;
+            }
+            
+            .wishlist-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem 0.5rem;
+                border-bottom: none;
+                white-space: normal;
+            }
+            
+            .wishlist-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                margin-right: 1rem;
+                color: var(--secondary-color);
+                flex: 1;
+            }
+            
+            .wishlist-table td > * {
+                flex: 2;
+                text-align: right;
+            }
+            
+            .wishlist-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .wishlist-item-img {
+                margin-right: 0;
+                margin-bottom: 0.75rem;
+                width: 100px;
+            }
+            
+            .remove-item {
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include './header.html' %}
+    
+    <div class="account-top-section">
+        <div class="account-container">
+            <div class="account-header">
+                <h1>My Wishlist</h1>
+                <p>Your saved favorite products</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="account-container">
+        <div class="account-content">
+            <div class="account-sidebar">
+                <ul class="account-menu">
+                    <li><a href="{% url 'account' %}">Dashboard</a></li>
+                    <li><a href="{% url 'orders' %}">Orders</a></li>
+                    <li><a href="{% url 'wishlist' %}" class="active">Wishlist</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
+            
+            <div class="account-main">
+                <!-- Wishlist with Items -->
+                <table class="wishlist-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Stock Status</th>
+                            <th>Action</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Product">
+                                <div class="wishlist-item">
+                                    <div class="wishlist-item-img">
+                                        <img src="{% static 'img/products/product-img-1.jpg' %}" alt="Organic Strawberries">
+                                    </div>
+                                    <div class="wishlist-item-info">
+                                        <h3 class="wishlist-item-title">Organic Strawberries</h3>
+                                        <div class="wishlist-item-sku">SKU: FRSTB-001</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="wishlist-item-price">₹120.99</td>
+                            <td data-label="Stock Status"><span class="stock-status in-stock">In Stock</span></td>
+                            <td data-label="Action">
+                                <a href="#" class="btn btn-sm">Add to Cart</a>
+                            </td>
+                            <td>
+                                <a href="#" class="remove-item">×</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">
+                                <div class="wishlist-item">
+                                    <div class="wishlist-item-img">
+                                        <img src="{% static 'img/products/product-img-2.jpg' %}" alt="Fresh Oranges">
+                                    </div>
+                                    <div class="wishlist-item-info">
+                                        <h3 class="wishlist-item-title">Fresh Oranges</h3>
+                                        <div class="wishlist-item-sku">SKU: FRORG-005</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="wishlist-item-price">₹80.99</td>
+                            <td data-label="Stock Status"><span class="stock-status in-stock">In Stock</span></td>
+                            <td data-label="Action">
+                                <a href="#" class="btn btn-sm">Add to Cart</a>
+                            </td>
+                            <td>
+                                <a href="#" class="remove-item">×</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">
+                                <div class="wishlist-item">
+                                    <div class="wishlist-item-img">
+                                        <img src="{% static 'img/products/product-img-3.jpg' %}" alt="Organic Apples">
+                                    </div>
+                                    <div class="wishlist-item-info">
+                                        <h3 class="wishlist-item-title">Organic Apples</h3>
+                                        <div class="wishlist-item-sku">SKU: FRAPL-012</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Price" class="wishlist-item-price">₹60.99</td>
+                            <td data-label="Stock Status"><span class="stock-status out-of-stock">Out of Stock</span></td>
+                            <td data-label="Action">
+                                <a href="#" class="btn btn-sm btn-outline">Notify Me</a>
+                            </td>
+                            <td>
+                                <a href="#" class="remove-item">×</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-outline">Continue Shopping</a>
+                    <a href="#" class="btn">Add All to Cart</a>
+                </div>
+                
+                <!-- Empty Wishlist State (hidden) -->
+                <!--
+                <div class="empty-wishlist">
+                    <div class="empty-wishlist-icon">♡</div>
+                    <h3>Your wishlist is empty</h3>
+                    <p>You don't have any products in your wishlist yet.</p>
+                    <a href="#" class="btn">Browse Products</a>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    
+    {% include './footer.html' %}
+</body>
+</html>
