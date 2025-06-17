@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import Products
 
 def index(request):
+    
     products = Products.objects.all()[:6]  
     return render(request, 'myapp/index.html', {'products': products})
     
@@ -91,8 +92,9 @@ def shop(request):
 
 def product_details(request, product_id):
     product = get_object_or_404(Products, id=product_id)
+    related_products = Products.objects.filter(category=product.category).exclude(id=product.id)[:6]
     
-    return render(request,'myapp/product_details.html', {'product':product})
+    return render(request,'myapp/product_details.html', {'product':product, 'related_products':related_products})
 
 
 

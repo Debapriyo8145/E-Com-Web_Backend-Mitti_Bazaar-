@@ -71,33 +71,32 @@
                         <!-- menu start -->
                         <nav class="main-menu">
                             <ul>
-                                <li class="current-list-item"><a href="{% url 'index' %}">Home</a>
+                                <li class="{% if request.resolver_match.url_name == 'index' %}current-list-item{% endif %}">
+                                   <a href="{% url 'index' %}">Home</a>
                                 </li>
-                                <li><a href="{% url 'about' %}">About</a></li>
+                                <li class="{% if request.resolver_match.url_name == 'about' %}current-list-item{% endif %}">
+                                    <a href="{% url 'about' %}">About</a>
+                                </li>
                                 <li><a href="#">Pages</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="404.html">404 page</a></li>
-                                        <li><a href="{% url 'about' %}">About</a></li>
-                                        <li><a href="{% url 'cart' %}">Cart</a></li>
-                                        <li><a href="checkout.html">Check Out</a></li>
+                                    <ul class="sub-menu">                                        
                                         <li><a href="contact.html">Contact</a></li>
                                         <li><a href="news.html">News</a></li>
-                                        <li><a href="{% url 'shop' %}">Shop</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="news.html">News</a>
+                                <!-- <li><a href="news.html">News</a>
                                     <ul class="sub-menu">
                                         <li><a href="news.html">News</a></li>
                                         <li><a href="single-news.html">Single News</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="contact.html">Contact</a></li>
+                                </li> -->
+                                <!-- <li><a href="contact.html">Contact</a></li> -->
                                 <li><a href="{% url 'shop' %}">Shop</a>
                                     <ul class="sub-menu">
-                                        <li><a href="{% url 'shop' %}">Shop</a></li>
-                                        <li><a href="checkout.html">Check Out</a></li>
-                                        <li><a href="single-product.html">Single Product</a></li>
-                                        <li><a href="{% url 'cart' %}">Cart</a></li>
+                                        <li><a href="#">Handmade</a></li>
+                                        <li><a href="#">Traditional Items</a></li>
+                                        <li><a href="#">Home Decor</a></li>
+                                        <li><a href="#">Planters & Pots</a></li>
+                                        <li><a href="#">Teracota</a></li>
                                     </ul>
                                 </li>
                                 <li>
