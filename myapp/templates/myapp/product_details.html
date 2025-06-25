@@ -51,7 +51,9 @@
 							                        <form action="index.html">
 							                            <input type="number" placeholder="0">
 							                        </form>
-							                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+							                        <a href="{% url 'add_to_cart' product.id %}" class="cart-btn">
+													    <i class="fas fa-shopping-cart"></i> Add to Cart
+													</a>
 							                        <a href="cart.html" class="wishlist-btn"><i class="fas fa-heart" ></i> Add to Wishlist</a>
 							                        <p><strong>Categorie: </strong>{{ product.category }}</p>
 													<div class="{% if product.avilable %}custom-in-stock{% else %}custom-out-stock{% endif %}">
@@ -101,7 +103,7 @@
 					        <p class="product-price">
 					            <span>Qty: {{ item.quantity }}</span> ₹{{ item.price }}
 					        </p>
-					        <a href="{% url 'cart' %}" class="cart-btn">
+					        <a href="{% url 'cart_view' %}" class="cart-btn">
 					            <i class="fas fa-shopping-cart"></i> Add to Cart
 					        </a>
 					    </div>

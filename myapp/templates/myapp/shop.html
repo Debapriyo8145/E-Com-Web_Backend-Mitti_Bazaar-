@@ -47,17 +47,24 @@
 			
 		        <div class="row product-lists">
 					{% for product in products %}
-		            <!-- Product 1 -->
-		            <div class="col-6 col-lg-3 col-md-4 col-sm-6 text-center strawberry">
-		                <div class="single-product-item">
-		                    <div class="product-image">
-		                        <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}" alt="{{ product.name }}"></a>
-		                    </div>
-		                    <h3>{{ product.name }}</h3>
-		                    <p class="product-price"><span>Pice of {{ product.quantity }}</span>₹{{ product.price }}</p>
-		                    <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-		                </div>
-		            </div>
+					<!-- Single Product Card -->
+					<div class="col-6 col-lg-3 col-md-4 col-sm-6 text-center strawberry">
+					    <div class="single-product-item">
+					        <div class="product-image">
+					            <a href="{% url 'product_details' product.id %}">
+					                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+					            </a>
+					        </div>
+					        <h3>{{ product.name }}</h3>
+					        <p class="product-price">
+					            <span>Price for {{ product.quantity }} unit{{ product.quantity|pluralize }}</span>
+					            ₹{{ product.price }}
+					        </p>
+					        <a href="{% url 'add_to_cart' product.id %}" class="cart-btn">
+					            <i class="fas fa-shopping-cart"></i> Add to Cart
+					        </a>
+					    </div>
+					</div>
 					{% endfor %}
 				</div>
 

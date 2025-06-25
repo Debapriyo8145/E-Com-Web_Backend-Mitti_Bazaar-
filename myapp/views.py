@@ -96,5 +96,36 @@ def product_details(request, product_id):
     
     return render(request,'myapp/product_details.html', {'product':product, 'related_products':related_products})
 
+def cart_view(request):
+    cart = request.session.get('cart',{})
+    products = Products.objects.filter(id__in = cart.keys())
+    
+    cart_items = []
+    total = 0
+    
+    for product in  products:
+        quantity = cart[str(product.id)]
+        subtotal = product.price * quantity
+        total += subtotal
+        cart_items.append({
+            'product':product,
+            'quantity':quantity,
+            'subtotal':subtotal,
+        })
+    
+    return render (request, 'myapp/cart.html', {'cart_items':cart_items, 'total':total})
 
+def add_to_cart(request, product_id):
+    cart = request.session.get('cart', {})
+    cart[str(product_id)] = cart.get(str(product_id), 0) + 1
+    request.session['cart'] = cart
+    
+    return redirect('cart_view')
 
+def remove_from_cart(request, product_id):
+    cart = request.session.get('cart', {})
+    if str(product_id) in cart:
+        del cart[str(product_id)]
+        request.session['cart'] = cart
+        
+    return redirect('cart_view')

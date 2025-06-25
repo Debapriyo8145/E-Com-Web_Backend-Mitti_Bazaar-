@@ -103,7 +103,7 @@
                                     <div class="header-icons">
                                             <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
                                         {% if user.is_authenticated %}
-                                            <a class="shopping-cart" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a>
+                                            <a class="shopping-cart" href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i></a>
                                             <a class="mobile-hide account-icon" href="{% url 'account' %}"><i class="fas fa-user"></i></a>
                                         {% else %}
                                             <a class="mobile-hide account-icon" href="{% url 'login' %}"><i class="fas fa-user"></i></a>
