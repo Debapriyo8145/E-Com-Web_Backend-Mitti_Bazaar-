@@ -107,10 +107,13 @@ def cart_view(request):
         quantity = cart[str(product.id)]
         subtotal = product.price * quantity
         total += subtotal
+        total_pieces = product.quantity * quantity
+        
         cart_items.append({
             'product':product,
             'quantity':quantity,
             'subtotal':subtotal,
+            'total_pieces':total_pieces
         })
     
     return render (request, 'myapp/cart.html', {'cart_items':cart_items, 'total':total})
@@ -128,4 +131,26 @@ def remove_from_cart(request, product_id):
         del cart[str(product_id)]
         request.session['cart'] = cart
         
+    return redirect('cart_view')
+
+from django.shortcuts import redirect
+
+def update_cart(request):
+    if request.method == 'POST':
+        cart = request.session.get('cart', {})
+
+        for key, value in request.POST.items():
+            if key.startswith('quantities_'):
+                product_id = key.split('_')[1]
+                try:
+                    quantity = int(value)
+                    if quantity > 0:
+                        cart[product_id] = quantity
+                    else:
+                        cart.pop(product_id, None)
+                except ValueError:
+                    continue
+
+        request.session['cart'] = cart
+
     return redirect('cart_view')

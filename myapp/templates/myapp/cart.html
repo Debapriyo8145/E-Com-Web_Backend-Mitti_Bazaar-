@@ -1,28 +1,29 @@
 {% load static %}
 {% include './header.html' %}
-    
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>Fresh and Organic</p>
-						<h1>Cart</h1>
-					</div>
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<p>Fresh and Organic</p>
+					<h1>Cart</h1>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end breadcrumb section -->
+</div>
+<!-- end breadcrumb section -->
 
-	<!-- cart -->
-	<div class="cart-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-12">
-					<div class="cart-table-wrap">
+<!-- cart -->
+<div class="cart-section mt-150 mb-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-12">
+				<div class="cart-table-wrap">
+					<form method="post" action="{% url 'update_cart' %}">
+						{% csrf_token %}
 						<table class="cart-table">
 							<thead class="cart-table-head">
 								<tr class="table-head-row">
@@ -36,96 +37,112 @@
 								</tr>
 							</thead>
 							<tbody>
-							    {% for item in cart_items %}
-							    <tr class="table-body-row">
-							        <!-- Remove from cart button -->
-							        <td class="product-remove">
-							            <a href="{% url 'remove_from_cart' item.product.id %}">
-							                <i class="far fa-window-close"></i>
-							            </a>
-							        </td>
-								
-							        <!-- Product image -->
-							        <td class="product-image">
-							            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-							        </td>
-							        <td class="product-name">{{ product.quantity }}</td>
-								
-							        <!-- Product name -->
-							        <td class="product-name">{{ item.product.name }}</td>
-								
-							        <!-- Product price -->
-							        <td class="product-price">₹{{ item.product.price }}</td>
-								
-							        <!-- Product quantity (readonly for now) -->
-							        <td class="product-quantity">
-							            <input type="number" value="{{ item.quantity }}" readonly>
-							        </td>
-								
-							        <!-- Product total (subtotal) -->
-							        <td class="product-total">₹{{ item.subtotal }}</td>
-							    </tr>
-							    {% empty %}
-							    <tr>
-							        <td colspan="6" class="text-center">Your cart is empty.</td>
-							    </tr>
-							    {% endfor %}
-							</tbody>
+								{% for item in cart_items %}
+								<tr class="table-body-row">
+									<!-- Remove from cart button -->
+									<td class="product-remove">
+										<a href="{% url 'remove_from_cart' item.product.id %}">
+											<i class="far fa-window-close"></i>
+										</a>
+										{% if item.product.avilable %}
+											<i class="fas fa-check-circle" style="color: green;"></i>
+										{% else %}
+											<i class="fas fa-times-circle" style="color: red;"><br>Out Of Stalk</i>
+										{% endif %}
+									</td>
 
+									<!-- Product image -->
+									<td class="product-image">
+										<a href="{% url 'product_details' item.product.id %}">
+											<img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+										</a>
+									</td>
+
+									<!-- Pieces per set -->
+									<td class="product-name">
+										{{ item.product.quantity }} piece{{ item.product.quantity|pluralize }} per set
+									</td>
+
+									<!-- Product name -->
+									<td class="product-name">{{ item.product.name }}</td>
+
+									<!-- Product price -->
+									<td class="product-price">₹{{ item.product.price }}</td>
+
+									<!-- Quantity (editable sets) -->
+									<td class="product-quantity">
+										<input type="number" name="quantities_{{ item.product.id }}" value="{{ item.quantity }}" min="1">
+										<small>{{ item.total_pieces }} pieces in total</small>
+									</td>
+
+									<!-- Product total (subtotal) -->
+									<td class="product-total">₹{{ item.subtotal }}</td>
+								</tr>
+								{% empty %}
+								<tr>
+									<td colspan="7" class="text-center">Your cart is empty.</td>
+								</tr>
+								{% endfor %}
+							</tbody>
 						</table>
-					</div>
+
+						<!-- Cart Buttons -->
+						<div class="cart-buttons mt-3">
+							<button type="submit" class="boxed-btn">Update Cart</button>
+							<a href="#" class="boxed-btn black">Check Out</a>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- Total Summary -->
+			<div class="col-lg-4">
+				<div class="total-section">
+					<table class="total-table">
+						<thead class="total-table-head">
+							<tr class="table-total-row">
+								<th>Total</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="total-data">
+								<td><strong>Subtotal:</strong></td>
+								<td>₹{{ total }}</td>
+							</tr>
+							<tr class="total-data">
+								<td><strong>Shipping:</strong></td>
+								{% if total >= 1000 %}
+									<td>Free</td>
+								{% else %}
+									<td>₹50</td>
+								{% endif %}
+							</tr>
+							<tr class="total-data">
+								<td><strong>Total:</strong></td>
+								<td>₹{{ total|add:45 }}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 
-				<div class="col-lg-4">
-					<div class="total-section">
-						<table class="total-table">
-							<thead class="total-table-head">
-								<tr class="table-total-row">
-									<th>Total</th>
-									<th>Price</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="total-data">
-							    <td><strong>Subtotal:</strong></td>
-							    <td>₹{{ total }}</td>
-								</tr>
-								<tr class="total-data">
-							    <td><strong>Shipping:</strong></td>
-							    <td>₹45</td>
-								</tr>
-								<tr class="total-data">
-							    <td><strong>Total:</strong></td>
-							    <td>₹{{ total|add:45 }}</td>
-								</tr>
-
-							</tbody>
-						</table>
-						<div class="cart-buttons">
-							<a href="#" class="boxed-btn">Update Cart</a>
-							<a href="checkout.html" class="boxed-btn black">Check Out</a>
-						</div>
-					</div>
-
-					<div class="coupon-section">
-						<h3>Apply Coupon</h3>
-						<div class="coupon-form-wrap">
-							<form action="index.html">
-								<p><input type="text" placeholder="Coupon"></p>
-								<p><input type="submit" value="Apply"></p>
-							</form>
-						</div>
+				<!-- Coupon -->
+				<div class="coupon-section mt-4">
+					<h3>Apply Coupon</h3>
+					<div class="coupon-form-wrap">
+						<form action="#" method="post">
+							<p><input type="text" placeholder="Coupon"></p>
+							<p><input type="submit" value="Apply"></p>
+						</form>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
-	<!-- end cart -->
-
-
-
+</div>
+<!-- end cart -->
 
 {% include './footer.html' %}
-    
 </body>
 </html>

@@ -412,20 +412,27 @@ p:last-child {
 
 
 
-a.boxed-btn {
+a.boxed-btn,
+button.boxed-btn {
   font-family: 'Poppins', sans-serif;
+  font-weight: 700;
   display: inline-block;
   background-color: #F28123;
-  color: #fff;
+  color: #051922;
   padding: 10px 20px;
-  border: 2px solid #F28123; /* Always define the border */
-  /* border-radius: 50px; */
+  border: 2px solid #F28123;
   transition: all 0.3s ease;
+  cursor: pointer; /* for button hover effect */
+  text-decoration: none; /* removes underline for <a> */
+  margin-bottom: 20px;
 }
 
-a.boxed-btn:hover {
-  background-color: transparent;
-  color: #fff;
+a.boxed-btn:hover,
+button.boxed-btn:hover {
+  /* background-color: transparent;
+  color: #fff; */
+  background-color: #051922;
+  color: #F28123;
 }
 
 a.bordered-btn {
@@ -473,7 +480,7 @@ a.read-more-btn:hover {
   color: #F28123;
 }
 
-a.boxed-btn, a.bordered-btn, a.cart-btn, a.wishlist-btn {
+a.boxed-btn, a.bordered-btn, a.cart-btn, a.wishlist-btn, button.boxed-btn {
   border-radius: 50px;
 }
 
